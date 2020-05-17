@@ -64,6 +64,23 @@ public class Solution {
     }
 
     public static void main(String[] args) {
+        /*
+        Object Oriented alternative
+        You are procedurally looping over a string to execute a command as it's parsing a string.
+        
+        Identify the two main responsibilities/tasks of this program:
+        1. Parsing the user input string into a command and person(s)
+        2. Executing the desired command with the supplied person(s)
+        
+        This means you should have a minimum of two classes: CommandParser and PersonRepository.
+        
+        CommandParser would have some method parseCommand(String). That should return some object that can be passed
+        through the rest of the system. You never want to pass raw user input through your program. You want to have
+        some type of Controller which transforms the user input into input objects -- or rather, you want a Controller
+        to use a Parser to create those objects, which the Controller then passes to other objects (like the PersonRepo).
+        
+        So, you've identified an extra object: the input object that the Parser outputs and the Repo accepts as input. ...
+        */
         try {
         switch(args[0]) {
             case "-c":
@@ -99,7 +116,20 @@ public class Solution {
         Date birthDate = null;
 
         for (String string: args) {
+            /*
+            This is common, loop over something and only do something if some condition (!= -c) is true. This can lead to 
+            excessive indenting. It's preferable to think of it as "if some condition is false, then skip."
+            if (string.contentEquals("-c")) {
+                continue;
+            }
+            // Continue processing
+            
+            See how now the rest of the code doesn't have to bbe indented?
+            */
             if(!string.contentEquals("-c")) {
+                    // Code style: you've indented twice instead of once here. Also, unless you're following some coding
+                    // style that says to, you should never omit curly bbraces on if/else statements, even though they are
+                    // optional
                     if (isBirthDate(string))
                         birthDate = parseBirthDate(string);
                     else if (isSex(string))
