@@ -79,7 +79,28 @@ public class Solution {
         some type of Controller which transforms the user input into input objects -- or rather, you want a Controller
         to use a Parser to create those objects, which the Controller then passes to other objects (like the PersonRepo).
         
-        So, you've identified an extra object: the input object that the Parser outputs and the Repo accepts as input. ...
+        So, you've identified an extra object: the input object that the Parser outputs and the Repo accepts as input. 
+        This is called a Data Transfer Object (DTO), a super simple, all-public properties, no methods object that models
+        user input. So imagine we had a CreatePersonDTO:
+        
+        interface PersonDTO
+        
+        class CreatePersonDTO implements PersonDTO
+        + name: String
+        + birthDate: Date
+        + sex: String
+        
+        Now, make your CommandParser.parseCommand(String) be able to transform the user input into the abbove, if it's
+        the flag is -c. Make similar classes for the other three flags. Move your parse*() commands from this class into
+        the Parser class and leverage them there. If it can't parse something, it throws the ParseException.
+        
+        Now, the controller (this Solution class) can take the PersonDTO returned by the CommandParser and pass it to the
+        Repo. I would imagine having some PersonRepository.execute(PersonDTO). That method looks to see what specific 
+        class it is (e.g. CreatePersonDTO) and then calls the appropriate command, such as: 
+        PersonRepository.create(CreatePersonDTO)
+        
+        Once you have that done, you can refactor your Parser to return an array/list of PersonDTO since they may have 
+        passed in multiple people in the command string.
         */
         try {
         switch(args[0]) {
