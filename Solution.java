@@ -122,6 +122,17 @@ public class Solution {
 
     public static void updatePeople(String[] args) throws ParseException {
 
+        /**
+        This whole section was copy/pasted from abbove and continued below. Remember: Copy and Paste is Copy and Waste.
+        
+        You want to keep your code DRY: Don't Repeat Yourself. When you find yourself typing something out again or 
+        going for that COPY, STOP. Think, how can I make this into reusable code? This means REFACTORING: rewriting portions
+        of code without changing functionality, for the purpose of making it extendible, maintainable, or clarity.
+        
+        I might create some new PRIVATE method called parseNextPerson(string): <name:String, sex:Sex,birthDate:Date, remainingString:String>
+        
+        That way you loop over that, while that method gives you another person, then do something for that information.
+        */
         String name = null;
         Sex sex = null;
         Date birthDate = null;
